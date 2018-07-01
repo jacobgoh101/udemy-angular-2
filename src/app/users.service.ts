@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
+import {CounterService} from "./counter.service"
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
   activeUsers : string[] = ['Max', 'Anna'];
   inactiveUsers : string[] = ['Chris', 'Manu'];
 
-  constructor() {}
+  constructor(private counterService : CounterService) {}
 
   onSetToInactive(id : number) {
     this
@@ -14,6 +15,9 @@ export class UsersService {
     this
       .activeUsers
       .splice(id, 1);
+    this
+      .counterService
+      .increment();
   }
 
   onSetToActive(id : number) {
@@ -23,5 +27,8 @@ export class UsersService {
     this
       .inactiveUsers
       .splice(id, 1);
+    this
+      .counterService
+      .increment();
   }
 }
